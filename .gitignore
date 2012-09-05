@@ -1,0 +1,5 @@
+/target/
+.svn/
+work/
+nbactions*
+/.m2/
