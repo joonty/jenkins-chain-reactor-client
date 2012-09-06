@@ -47,6 +47,21 @@ public class ChainReactorNotifier extends Notifier {
 		return BuildStepMonitor.NONE;
 	}
 
+    protected void notifyChainReactorServers(AbstractBuild build, BuildListener listener) {
+        ArrayList<ChainReactorServer> servers = ((DescriptorImpl) getDescriptor()).getServers();
+
+        if (servers.isEmpty()) {
+			listener.getLogger().println("* No chain reactor servers have been set up - this can be done in the Jenkins global configuration *");
+        } else {
+			listener.getLogger().println("Notifying chain reaction server(s):");
+            ChainReactorConnector conn = new ChainReactorConnector(build,listener.getLogger());
+            for (ChainReactorServer s : servers) {
+                listener.getLogger().println("\t- "+s.toString());
+                conn.connect(s);
+            }
+        }
+    }
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -58,11 +73,10 @@ public class ChainReactorNotifier extends Notifier {
 	public boolean perform(AbstractBuild<?, ?> build, Launcher launcher,
 		BuildListener listener) throws InterruptedException, IOException {
 
-		listener.getLogger().println("Chain reaction!!!");
 		if (crclientEnabled == false) {
 			return true;
 		} else {
-			listener.getLogger().println("Pineapples");
+            notifyChainReactorServers(build,listener);
 		}
 		return true;
 	}

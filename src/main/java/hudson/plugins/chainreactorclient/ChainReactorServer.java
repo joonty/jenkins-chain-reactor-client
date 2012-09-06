@@ -25,6 +25,9 @@ package hudson.plugins.chainreactorclient;
 
 import java.io.Serializable;
 import org.kohsuke.stapler.DataBoundConstructor;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 
 /**
  *
@@ -49,4 +52,13 @@ public class ChainReactorServer implements Serializable {
 	public int getPort() {
 		return port;
 	}
+
+    public InetSocketAddress getSocketAddress() throws UnknownHostException {
+        InetAddress addr = InetAddress.getByName(getUrl());
+        return new InetSocketAddress(addr,getPort());
+    }
+
+    public String toString() {
+        return url + ":" + port;
+    }
 }
