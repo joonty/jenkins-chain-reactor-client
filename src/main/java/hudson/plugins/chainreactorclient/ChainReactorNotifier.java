@@ -70,7 +70,7 @@ public class ChainReactorNotifier extends Notifier {
 	@Extension
 	public static final class DescriptorImpl extends BuildStepDescriptor<Publisher> {
 
-		public ArrayList<ChainReactorServer> servers = new ArrayList<ChainReactorServer>();
+		public ArrayList<ChainReactorServer> crservers = new ArrayList<ChainReactorServer>();
 
 		public DescriptorImpl() {
 			super(ChainReactorNotifier.class);
@@ -78,7 +78,7 @@ public class ChainReactorNotifier extends Notifier {
 		}
 
 		public ArrayList<ChainReactorServer> getServers() {
-			return servers;
+			return crservers;
 		}
 
 		/*
@@ -94,10 +94,10 @@ public class ChainReactorNotifier extends Notifier {
 
 		@Override
 		public boolean configure(StaplerRequest req, JSONObject json) throws FormException {
-			servers.clear();
+			crservers.clear();
 			for (Object data : getArray(json.get("crservers"))) {
 				ChainReactorServer s = req.bindJSON(ChainReactorServer.class, (JSONObject) data);
-				servers.add(s);
+				crservers.add(s);
 			}
 			save();
 			return super.configure(req, json);

@@ -12,15 +12,15 @@
     tags they use. Views are always organized according to its owner class,
     so it should be straightforward to find them.
   -->
-	<f:section title="Chain Reactor">
+	<f:section title="Chain Reactor Client">
 		<f:entry title="Chain reactor servers">
 			<f:repeatable var="crserver" items="${descriptor.getServers()}" name="crservers" add="Add Server">
 				<table width="100%" style="border: 1px solid #aaa">
 					<f:nested>
-						<f:entry title="URL"  help="/plugin/memegen/help-memeUpperText.html">
+						<f:entry title="URL">
 							<f:textbox name="url" value="${crserver.url}" />
 						</f:entry>
-						<f:entry title="Port"   help="/plugin/memegen/help-memeLowerText.html">
+						<f:entry title="Port">
 							<f:textbox name="port" value="${crserver.port}" />
 						</f:entry>
 					</f:nested>
