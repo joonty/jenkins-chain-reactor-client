@@ -69,6 +69,7 @@ public class ChainReactorConnector {
     try {
       InetSocketAddress sockaddr = server.getSocketAddress();
       Socket sock = new Socket();
+      sock.setSoTimeout(2000);
       sock.connect(sockaddr,2000);
       BufferedReader rd = new BufferedReader(new InputStreamReader(sock.getInputStream()));
       BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
