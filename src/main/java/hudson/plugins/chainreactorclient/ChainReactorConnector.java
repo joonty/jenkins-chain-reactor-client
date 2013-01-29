@@ -38,6 +38,8 @@ import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class ChainReactorInvalidServerException extends Exception {
   ChainReactorInvalidServerException(String message) {
@@ -50,6 +52,7 @@ public class ChainReactorConnector {
   private AbstractBuild build;
   private PrintStream logger;
   private String json;
+  private int acceptableMajorVersion = 0;
 
   ChainReactorConnector(AbstractBuild build, PrintStream logger) {
     this.build = build;
@@ -84,13 +87,13 @@ public class ChainReactorConnector {
     } catch (ChainReactorInvalidServerException crise) {
       logError(crise.getMessage());
     }
-    
+
     return true;
   }
 
   protected void logError(String error) {
-      logger.println(error);
-			System.err.println("Chain reactor client error: "+error);
+    logger.println(error);
+    System.err.println("Chain reactor client error: "+error);
   }
 
   /* Check that the server is actually chain reactor. 
@@ -101,7 +104,14 @@ public class ChainReactorConnector {
     throws ChainReactorInvalidServerException, IOException {
     String str = rd.readLine();
     if (str != null) {
-      if (str.matches("^ChainReactor v[0-9]+.[0-9]+")) {
+      Pattern pattern = Pattern.compile("^ChainReactor v([0-9]+)(.[0-9]+.[0-9])");
+      Matcher matcher = pattern.matcher(str);
+      if (matcher.find()) {
+        int majorVersion = Integer.parseInt(matcher.group(1));
+        String fullVersion = majorVersion + matcher.group(2);
+        if (majorVersion != acceptableMajorVersion) {
+          throw new ChainReactorInvalidServerException("Incompatible version of chain reactor server, " + fullVersion + " (this client is compatible with " + acceptableMajorVersion + ".x.x");
+        }
         return;
       } else {
         throw new ChainReactorInvalidServerException("Invalid welcome message from server socket - not a chain reactor server!");
