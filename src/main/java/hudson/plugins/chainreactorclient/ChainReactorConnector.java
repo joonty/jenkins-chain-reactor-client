@@ -58,11 +58,13 @@ public class ChainReactorConnector {
     this.build = build;
     this.logger = logger;
     JSONObject jsonobj = new JSONObject();
-    jsonobj.put("name",this.build.getProject().getName());
+    jsonobj.put("project",this.build.getProject().getName());
+    jsonobj.put("build_no",this.build.getNumber());
+    jsonobj.put("build",this.build.getFullDisplayName());
+    jsonobj.put("url",this.build.getAbsoluteUrl());
     Result res = build.getResult();
-    jsonobj.put("type",res.toString());
+    jsonobj.put("result",res.toString());
     this.json = jsonobj.toJSONString();
-    System.err.println("JSON string: "+this.json);
   }
 
   public boolean connect(ChainReactorServer server) {
