@@ -13,15 +13,15 @@
     so it should be straightforward to find them.
   -->
 	<f:section title="Chain Reactor Client">
-		<f:entry title="Chain reactor servers">
+		<f:entry title="Chain reactor servers" help="/plugin/chainreactorclient/help-crServer.html">
 			<f:repeatable var="crserver" items="${descriptor.getServers()}" name="crservers" add="Add Server">
 				<table width="100%" style="border: 1px solid #aaa">
 					<f:nested>
-						<f:entry title="URL">
+						<f:entry title="URL" help="/plugin/chainreactorclient/help-crUrl.html">
 							<f:textbox name="url" value="${crserver.url}" />
 						</f:entry>
-						<f:entry title="Port">
-							<f:textbox name="port" value="${crserver.port}" />
+						<f:entry title="Port" help="/plugin/chainreactorclient/help-crPort.html">
+							<f:textbox name="port" value="${crserver.port}" default="1987" />
 						</f:entry>
 					</f:nested>
 				</table>

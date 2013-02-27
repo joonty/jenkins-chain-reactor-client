@@ -10,7 +10,7 @@
 
 	<groupId>hudson.plugins.chainreactorclient</groupId>
 	<artifactId>chainreactorclient</artifactId>
-	<version>0.1-SNAPSHOT</version>
+	<version>0.2-SNAPSHOT</version>
 	<packaging>hpi</packaging>
 	<name>Chain Reactor Client</name>
 	<url>http://wiki.jenkins-ci.org/display/JENKINS/Chain+Reactor+Client+Plugin</url>
@@ -46,6 +46,11 @@
 	</licenses>
 
 	<dependencies>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.5</version>
+		</dependency>
 		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>

@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2012 Jon Cairns <jon.cairns@22blue.co.uk>.
+ * Copyright 2013 Jon Cairns <jon@joncairns.com>.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,7 @@ import java.net.UnknownHostException;
  * @author Jon Cairns <jon.cairns@22blue.co.uk>
  */
 public class ChainReactorServer implements Serializable {
-	public int port;
+	public int port = 1987;
 	public String url;
 
 	public ChainReactorServer() {}
